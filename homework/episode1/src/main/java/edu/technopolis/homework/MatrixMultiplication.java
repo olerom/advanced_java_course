@@ -7,10 +7,14 @@ package edu.technopolis.homework;
  */
 public class MatrixMultiplication {
     public static void main(String... args) {
+        new MatrixMultiplication().run(args);
+    }
+
+    private void run(String[] args) {
+
         // Checking arguments
         if (args.length < 6) {
-            System.out.println("Not enough arguments");
-            return;
+            throw new IllegalArgumentException("Not enough arguments");
         }
 
         // Reading input
@@ -23,8 +27,7 @@ public class MatrixMultiplication {
 
         // Checking whether it is correct or not
         if (a_column != b_row) {
-            System.out.println("You can't multiply these matrices :(");
-            return;
+            throw new IllegalArgumentException("You can't multiply these matrices. Check dimensions.");
         }
 
         int a_matrix[][] = new int[a_row][a_column];
@@ -37,6 +40,7 @@ public class MatrixMultiplication {
                 a_matrix[i][j] = Integer.parseInt(args[++index]);
             }
         }
+
         // Reading second matrix
         for (int i = 0; i < b_row; i++) {
             for (int j = 0; j < b_column; j++) {
@@ -44,9 +48,12 @@ public class MatrixMultiplication {
             }
         }
 
-        // Counting the result matrix
-        int result_matrix[][] = new int[a_row][b_column];
+        int result_matrix[][] = multiply(a_matrix, b_matrix, a_row, a_column, b_column);
+        new MatrixMultiplication().print(result_matrix);
+    }
 
+    private int[][] multiply(int[][] a_matrix, int[][] b_matrix, int a_row, int a_column, int b_column) {
+        int result_matrix[][] = new int[a_row][b_column];
         for (int i = 0; i < a_row; i++) {
             for (int j = 0; j < b_column; j++) {
                 int multiplied_element = 0;
@@ -56,11 +63,13 @@ public class MatrixMultiplication {
                 result_matrix[i][j] = multiplied_element;
             }
         }
+        return result_matrix;
+    }
 
-        // Prints the result
+    private void print(int result_matrix[][]) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < a_row; i++) {
-            for (int j = 0; j < b_column; j++) {
+        for (int i = 0; i < result_matrix.length; i++) {
+            for (int j = 0; j < result_matrix[0].length; j++) {
                 stringBuilder.append(result_matrix[i][j]);
                 stringBuilder.append("\t");
             }
