@@ -30,6 +30,11 @@ public class MatrixMultiplication {
             throw new IllegalArgumentException("You can't multiply these matrices. Check dimensions.");
         }
 
+        // Checking whether there is enough arguments
+        if (args.length - 4 < a_row * a_column + b_row * b_column) {
+            throw new IllegalArgumentException("Not enough arguments.");
+        }
+
         int a_matrix[][] = new int[a_row][a_column];
         int b_matrix[][] = new int[b_row][b_column];
         int index = 3;
@@ -50,6 +55,7 @@ public class MatrixMultiplication {
 
         int result_matrix[][] = multiply(a_matrix, b_matrix);
         new MatrixMultiplication().print(result_matrix);
+
     }
 
     private int[][] multiply(int[][] a_matrix, int[][] b_matrix) {
