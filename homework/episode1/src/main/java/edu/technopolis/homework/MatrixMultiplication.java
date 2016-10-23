@@ -73,9 +73,7 @@ public class MatrixMultiplication {
     }
 
     private void print(int result_matrix[][]) {
-
         StringBuilder stringBuilder = new StringBuilder();
-
         for (int i = 0; i < result_matrix.length; i++) {
             for (int j = 0; j < result_matrix[0].length; j++) {
                 stringBuilder.append(result_matrix[i][j]);
