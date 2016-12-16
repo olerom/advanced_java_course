@@ -9,22 +9,28 @@ import static org.junit.Assert.assertEquals;
  */
 public class CacheTest {
     @Test
-    public void deleteTest() {
-        Cache<String> cache = new Cache<>(1000);
+    public void overflowTest() {
+        Cache<String> cache = new Cache<String>(1000);
 
-        for (int i = 0; i < cache.length(); i++) {
+        cache.addElement(0, "Data: 0");
+        for (int i = 1; i < cache.length(); i++) {
             cache.addElement(i, "Data: " + i);
-            if (i < cache.length()) {
-                cache.getElement(i + 1);
-            }
+            cache.getElement(i);
         }
+
         cache.addElement(1001, "Data: " + 1001);
-
-        assertEquals(null, cache.getElement(0));
-
 
         for (int i = 1; i < cache.length(); i++) {
             assertEquals("Data: " + i, cache.getElement(i));
+        }
+    }
+
+
+    @Test(expected = NullPointerException.class)
+    public void exceptionTest() {
+        Cache<String> cache = new Cache<String>();
+        for (int i = 0; i < 1000; i++) {
+            cache.getElement(i);
         }
     }
 }

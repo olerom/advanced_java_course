@@ -19,7 +19,7 @@ class Cache<T> {
             return data;
         }
 
-        public void setData(T data) {
+        void setData(T data) {
             this.data = data;
         }
 
@@ -27,7 +27,7 @@ class Cache<T> {
             return counter;
         }
 
-        public void setCounter(int counter) {
+        void setCounter(int counter) {
             this.counter = counter;
         }
 
@@ -45,11 +45,14 @@ class Cache<T> {
         capacity = 10;
     }
 
-    Cache(int initialCapacity) {
-        this.capacity = initialCapacity;
+    Cache(int capacity) {
+        this.capacity = capacity;
     }
 
     void addElement(int key, T data) {
+        if (data == null){
+            throw new NullPointerException();
+        }
         if (cacheMap.size() != capacity) {
             Data temp = new Data();
             temp.setData(data);
@@ -87,7 +90,9 @@ class Cache<T> {
             cacheMap.put(key, temp);
             return temp.data;
         } else {
-            return null;
+            throw new NullPointerException();
         }
     }
+
+
 }
